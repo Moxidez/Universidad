@@ -1,0 +1,110 @@
+void setup() {
+  pinMode(0, OUTPUT);
+  pinMode(1, OUTPUT);
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(13, OUTPUT);
+}
+void loop() {
+  luces_1();
+  luces_2();
+  luces_3();
+}
+// El primer juego de luces se enciende desde los extremos hasta llegar a la mitad  
+void luces_1() {
+  for (int i = 0; i <= 7; i++) {
+    switch (i) {
+      case 0:
+        digitalWrite(13, HIGH); digitalWrite(0, HIGH);
+        delay(1000);
+        break;
+      case 1:
+        digitalWrite(12, HIGH); digitalWrite(1, HIGH);
+        delay(1000);
+        break;
+      case 2:
+        digitalWrite(11, HIGH); digitalWrite(2, HIGH);
+        delay(1000);
+        break;
+      case 3:
+        digitalWrite(10, HIGH); digitalWrite(3, HIGH);
+        delay(1000);
+        break;
+      case 4:
+        digitalWrite(9, HIGH); digitalWrite(4, HIGH);
+        delay(1000);
+        break;
+      case 5:
+        digitalWrite(8, HIGH); digitalWrite(5, HIGH);
+        delay(1000);
+        break;
+      case 6:
+        digitalWrite(7, HIGH); digitalWrite(6, HIGH);
+        delay(1000);
+        break;
+      case 7:
+        for (int a = 0; a <= 13; a++) {
+          digitalWrite(a, LOW);
+          delay(200);
+        }
+        break;
+    }
+  }
+}
+// El segundo juego de luces se encienden y apagan las luces pares y despues las impares
+void luces_2() {
+  for (int i = 0; i <= 12; i = i + 2) {
+    digitalWrite(i, HIGH);
+    delay(1000);
+  }
+  for (int e = 0; e <= 12; e = e + 2) {
+    digitalWrite(e, LOW);
+    delay(1000);
+  }
+  for (int a = 1; a <= 13; a = a + 2) {
+    digitalWrite(a, HIGH);
+    delay(1000);
+  }
+    for (int u = 1; u <= 13; u = u + 2) {
+    digitalWrite(u, LOW);
+    delay(1000);
+  }
+}
+// El tercer juego de luces se encienden y apagan de una en una hasta completar toda la secuencia y despues se encienden todas
+void luces_3() {
+  for (int i = 0; i <=2; i++) {
+    switch (i) {
+      case 0:
+        for (int a = 0; a <= 13; a++) {
+          digitalWrite(a, HIGH);
+          delay(1000);
+          for (int b = 0; b <= 13; b++) {
+            digitalWrite(b, LOW);
+            delay(200);
+          }
+        }
+        break;
+      case 1:
+        for (int c = 0; c <= 13; c++ ) {
+          digitalWrite(c, HIGH);
+          delay(1000);
+        }
+        break;
+      case 2:
+        for (int e = 0; e <= 13; e++) {
+          digitalWrite(e, LOW);
+          delay(200);
+        }
+        break;
+    }
+  }
+}
