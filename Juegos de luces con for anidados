@@ -1,0 +1,61 @@
+/*      JUEGOS DE LUCES CON CICLOS FOR
+   Deber :Programa que tenga 2 juegos de luces con for anidado.
+   Juego 1: Este juego tiene un for anidado y funciona cuando switch 1=1 y switch 2=0.el juego consiste en que se repite la secuencia el numero de veces que sea igual al random.
+   Juego 2: Este juego tiene un for anidado y funciona cuando switch 1=0 y switch 2=1.el juego consiste en que se prendan los leds desde los extremos en serie hacia el centro,
+   y al momento de encenderse todos, empiezan a apagarse de dos en dos desde el centro hacia los extremos, este se repite el numero de veces que sea igual al número random.
+   Nombre: Garcia Navarro Jonathan Fabricio
+   Fecha: 27 de Octubre 2016
+*/
+//Inicializar variables de pines
+int sw_1 = 7; //switch 1
+int sw_2 = 6; //switch 2
+int ran = 0;
+int i;
+int j;
+int vector_leds [6] = {8, 9, 10, 11, 12, 13};
+void setup() {
+  pinMode(8, OUTPUT); //pin 8 como salida
+  pinMode(9, OUTPUT); //pin 9 como salida
+  pinMode(10, OUTPUT); //pin 10 como salida
+  pinMode(11, OUTPUT); //pin 11 como salida
+  pinMode(12, OUTPUT); //pin 12 como salida
+  pinMode(13, OUTPUT); //pin 13 como salida
+  pinMode(sw_1, INPUT); //pin 7 como entrada
+  pinMode(sw_2, INPUT); //pin 6 como entrada
+}
+
+void loop() {
+  //Juego de luces 1
+  if (digitalRead(sw_1) == HIGH && digitalRead(sw_2) == LOW) {
+    delay(200);
+    ran = random(4);
+    for ( j = 0 ; j <= ran ; j++) {
+      for (  i = 8 ; i <= 13 ; i++) {
+        digitalWrite(i, HIGH);
+        delay(200);
+        digitalWrite(i, LOW);
+        delay(200);
+      }
+      i = 8;
+    }
+    delay(750);
+  }
+  else
+  {
+    //Juego de luces 2
+    if (digitalRead(sw_1) == LOW && digitalRead(sw_2) == HIGH) {
+      delay(200);
+      ran = random(4);
+      for (j = 0; j <= ran; j++) {
+        for (i = 0, j = 5; i <= 2; i++, j--) {
+          digitalWrite(vector_leds[i], HIGH), digitalWrite(vector_leds[j], HIGH);
+          delay(200);
+        }
+        for (i = 2, j = 3; i >= 0; i--, j++) {
+          digitalWrite(vector_leds[i], LOW), digitalWrite(vector_leds[j], LOW);
+          delay(200);
+        }
+      }
+    }
+  }
+}
