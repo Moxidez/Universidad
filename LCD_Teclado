@@ -1,0 +1,47 @@
+/*Univerisdad Tecnica Del Norte
+  CIERCOM
+  Nombre: Fabricio Garcia
+  Fecha: 19/01/2017
+  Sistemas Microprocesados
+  Descripcion
+  Este programa consta de 1 juegos para visualizar palabras en la lCD
+  se debe escribir la palabra antes de inicializar el respectivo juego
+*/
+////////////////////////////
+#include <LiquidCrystal.h>
+LiquidCrystal lcd (9, 8, 7, 6, 5, 4);
+////////////////////////////////////////
+String dato;
+int tamano;
+int i = 0;
+int j = 1;
+///////////////////////////////////////
+void setup() {
+  lcd.begin(16, 2);
+  Serial.begin(9600);
+}
+//////////////////////////////////////
+void loop() {
+  Serial.println("Juego de palabras ");
+  lcd.setCursor(0, 0);
+  Serial.println("Escriba la palabra ");
+  delay(1500);
+  dato = Serial.readString();
+  tamano = dato.length();
+  char vector[tamano + 1];
+  dato.toCharArray(vector, tamano + 1);
+  for (; i < tamano; i++) {
+    j = 1 - j;
+    lcd.setCursor(i, j);
+    lcd.print(vector[i]);
+    delay(250);
+  }
+  i = 16;
+  j = 1;
+  for (; i >= 0; i--) {
+    j = 1 - j;
+    lcd.setCursor(i, j);
+    lcd.print(' ');
+    delay(250);
+  } 
+}
