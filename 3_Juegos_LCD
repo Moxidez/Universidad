@@ -1,0 +1,137 @@
+/*Univerisdad Tecnica Del Norte
+  CIERCOM
+  Nombre: Fabricio Garcia
+  Fecha: 19/01/2017
+  Sistemas Microprocesados
+  Descripcion
+  Este programa consta de 3 juegos para visualizar palabras en la lCD
+  se debe escribir la palabra antes de inicializar el respectivo juego
+*/
+//Librerias//
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(9, 8, 7, 6, 5, 4);
+//Datos//
+String  dato;
+int estado;
+char tamano;
+int i = 0;
+int j = 0;
+//////////////////////
+void setup() {
+  Serial.begin(9600);
+  lcd.begin(16, 2);
+  Serial.println("INGRESE LA PALABRA");
+  lcd.print("   PALABRA  ");
+}
+/////////////////////
+void loop() {
+  juego1();
+  Serial.println("JUEGO 1 ");
+  delay(1000);
+  juego2 ();
+  Serial.println("juego 2 ");
+  delay(1000);
+  juego3 ();
+  Serial.println("juego 3 ");
+  delay(1000);
+}
+/////////////////////////////////////////////
+void juego1() {
+  if (Serial.available() > 0)
+  {
+    dato = Serial.readString();
+    Serial.println(dato);
+    lcd.setCursor(0, 0);
+    lcd.print(dato);
+    Serial.println("JUEGO DE DISPLAY");
+    int tam_texto = dato.length();
+    for (int i = 16; i >= 1; i--)
+    {
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print(" ");
+      lcd.setCursor(i, 1);
+      lcd.print(dato);
+      delay(60);
+    }
+    for (int i = 1; i <= tam_texto ; i++)
+    {
+      String texto = dato.substring(i - 1);
+      lcd.clear();
+      lcd.setCursor(0, 1);
+      lcd.print(texto);
+      delay(60);
+    }
+  }
+  i = 0;
+}
+//////////////////////////////////////////////////////
+void juego2 () {
+  if (Serial.available() > 0)
+  {
+    dato = Serial.readString();
+    Serial.println(dato);
+    lcd.setCursor(0, 0);
+    lcd.print(dato);
+    Serial.println("JUEGO DE DISPLAY");
+    int tam_texto = dato.length();
+    for (int i = tam_texto; i > 0 ; i--)
+    { String texto = dato.substring(i - 1);
+      // Limpiamos pantalla
+      lcd.setCursor(0, 0);
+      lcd.print(" ");
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print(dato);
+      delay(60);
+    }
+    for (int i = 1; i <= 16; i++)
+    {
+      lcd.clear();
+      lcd.setCursor(i, 0);
+      lcd.print(dato);
+      delay(60);
+    }
+    for (int i = 16; i >= 1; i--)
+    {
+      lcd.clear();
+      lcd.setCursor(i, 1);
+      lcd.print(dato);
+      delay(60);
+    }
+    for (int i = 1; i <= tam_texto ; i++)
+    {
+      String texto = dato.substring(i - 1);
+      lcd.clear();
+      lcd.setCursor(0, 1);
+      lcd.print(texto);
+      delay(60);
+    }
+  }
+  i = 0;
+}
+/////////////////////////////////////////////
+void juego3 () {
+  if (Serial.available() > 0) {
+    dato = Serial.readString();
+    Serial.println(dato);
+    Serial.println("JUEGO DE DISPLAY");
+    tamano = dato.length();
+    char mensaje[tamano];
+    dato.toCharArray(mensaje, tamano);
+    for (; i < tamano + 1; i++) {
+      lcd.setCursor(0, 0);
+      lcd.print(" ");
+      j = 1 - j;
+      lcd.setCursor(i, j);
+      lcd.print(mensaje[i]);
+      delay(200);
+      lcd.setCursor(i, j);
+      lcd.print('*');
+      delay(200);
+    }
+    lcd.clear();
+    i = 0;
+  }
+  i = 0;
+}
