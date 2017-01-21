@@ -1,0 +1,272 @@
+/*Univerisdad Tecnica Del Norte
+  CIERCOM
+  Nombre: Fabricio Garcia
+  Fecha: 19/01/2017
+  Sistemas Microprocesados
+  Descripcion
+  Teclado TAB en LCD
+*/
+//////////////////////////////////
+#include <Keypad.h>
+#include <LiquidCrystal.h>
+#include <TimerOne.h>
+LiquidCrystal lcd(13, 12, 11, 10, 9, 8);
+///////////////////////////////////////////////
+const byte ROWS = 4;
+const byte COLS = 3;
+char hexaKeys[ROWS][COLS] = {
+  {'1', '2', '3'},
+  {'4', '5', '6'},
+  {'7', '8', '9'},
+  {'*', '0', '#'}
+};
+byte rowPins[ROWS] = {3, 2, 1, 0};
+byte colPins[COLS] = {6, 5, 4};
+Keypad teclado = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
+/////////////////////////////////////////////////
+char letra;
+int cont_0 = 0;
+int cont_1 = 0;
+int cont_2 = 4;
+int cont_3 = 8;
+int cont_4 = 12;
+int cont_5 = 16;
+int cont_6 = 20;
+int cont_7 = 25;
+int cont_8 = 29;
+int col = 0;
+///////////////////////////////////////////////////////////////////
+void setup() {
+  lcd.begin(16, 2);
+  Timer1.initialize(100000);
+  Timer1.attachInterrupt(espera);
+}
+/////////////////////////////////////////////////////////////////
+void loop() {
+  char datoteclado = teclado.getKey();
+  if (datoteclado) {
+    if (datoteclado == '1') {
+      lcd.setCursor(col, 0);
+      lcd.print('1');
+      cont_0 = 0;
+    }
+    if (datoteclado == '2') {
+      cont_1++;
+      cell(cont_1);
+      lcd.setCursor(col, 0);
+      lcd.print(letra);
+      if (cont_1 == 4) {
+        cont_1 = 0;
+      }
+      cont_0 = 0;
+    }
+    if (datoteclado == '3') {
+      cont_2++;
+      cell(cont_2);
+      lcd.setCursor(col, 0);
+      lcd.print(letra);
+      if (cont_2 == 8) {
+        cont_2 = 4;
+      }
+      cont_0 = 0;
+    }
+    if (datoteclado == '4') {
+      cont_3++;
+      cell(cont_3);
+      lcd.setCursor(col, 0);
+      lcd.print(letra);
+      if (cont_3 == 12) {
+        cont_3 = 8;
+      }
+      cont_0 = 0;
+    }
+    if (datoteclado == '5') {
+      cont_4++;
+      cell(cont_4);
+      lcd.setCursor(col, 0);
+      lcd.print(letra);
+      if (cont_4 == 16) {
+        cont_4 = 12;
+      }
+      cont_0 = 0;
+    }
+    if (datoteclado == '6') {
+      cont_5++;
+      cell(cont_5);
+      lcd.setCursor(col, 0);
+      lcd.print(letra);
+      if (cont_5 == 20) {
+        cont_5 = 16;
+      }
+      cont_0 = 0;
+    }
+    if (datoteclado == '7') {
+      cont_6++;
+      cell(cont_6);
+      lcd.setCursor(col, 0);
+      lcd.print(letra);
+      if (cont_6 == 25) {
+        cont_6 = 20;
+      }
+      cont_0 = 0;
+    }
+    if (datoteclado == '8') {
+      cont_7++;
+      cell(cont_7);
+      lcd.setCursor(col, 0);
+      lcd.print(letra);
+      if (cont_7 == 29) {
+        cont_7 = 25;
+      }
+      cont_0 = 0;
+    }
+    if (datoteclado == '9') {
+      cont_8++;
+      cell(cont_8);
+      lcd.setCursor(col, 0);
+      lcd.print(letra);
+      if (cont_8 == 34) {
+        cont_8 = 29;
+      }
+      cont_0 = 0;
+    }
+    if (datoteclado == '0') {
+      lcd.setCursor(col, 0);
+      lcd.print('0');
+      cont_0 = 0;
+    }
+    if (datoteclado == '#') {
+      lcd.setCursor(col, 0);
+      lcd.print('#');
+      cont_0 = 0;
+    }
+    if (datoteclado == '*') {
+      lcd.setCursor(col, 0);
+      lcd.print('*');
+      cont_0 = 0;
+    }
+  }
+}
+/////////////////////////////////////////////////
+char cell (int dato) {
+  switch (dato) {
+    case 1:
+      letra = '2';
+      break;
+    case 2:
+      letra = 'a';
+      break;
+    case 3:
+      letra = 'b';
+      break;
+    case 4:
+      letra = 'c';
+      break;
+    case 5:
+      letra = '3';
+      break;
+    case 6:
+      letra = 'd';
+      break;
+    case 7:
+      letra = 'e';
+      break;
+    case 8:
+      letra = 'f';
+      break;
+    case 9:
+      letra = '4';
+      break;
+    case 10:
+      letra = 'g';
+      break;
+    case 11:
+      letra = 'h';
+      break;
+    case 12:
+      letra = 'i';
+      break;
+    case 13:
+      letra = '5';
+      break;
+    case 14:
+      letra = 'j';
+      break;
+    case 15:
+      letra = 'k';
+      break;
+    case 16:
+      letra = 'l';
+      break;
+    case 17:
+      letra = '6';
+      break;
+    case 18:
+      letra = 'm';
+      break;
+    case 19:
+      letra = 'n';
+      break;
+    case 20:
+      letra = 'o';
+      break;
+    case 21:
+      letra = '7';
+      break;
+    case 22:
+      letra = 'p';
+      break;
+    case 23:
+      letra = 'q';
+      break;
+    case 24:
+      letra = 'r';
+      break;
+    case 25:
+      letra = 's';
+      break;
+    case 26:
+      letra = '8';
+      break;
+    case 27:
+      letra = 't';
+      break;
+    case 28:
+      letra = 'u';
+      break;
+    case 29:
+      letra = 'v';
+      break;
+    case 30:
+      letra = '9';
+      break;
+    case 31:
+      letra = 'w';
+      break;
+    case 32:
+      letra = 'x';
+      break;
+    case 33:
+      letra = 'y';
+      break;
+    case 34:
+      letra = 'z';
+      break;
+  }
+  return letra;
+}
+//////////////////////////////////////
+void espera() {
+  cont_0++;
+  if (cont_0 == 6) {
+    col++;
+    cont_1 = 0;
+    cont_2 = 4;
+    cont_3 = 8;
+    cont_4 = 12;
+    cont_5 = 16;
+    cont_6 = 20;
+    cont_7 = 25;
+    cont_8 = 29;
+  }
+}
